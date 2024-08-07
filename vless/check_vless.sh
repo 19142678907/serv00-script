@@ -122,7 +122,7 @@ main() {
             echo -e "UUID: ${uuid}"
             echo -e "Port: ${port}"
             echo -e "域名: $USER.serv00.net"
-            echo -e "VLESS节点信息: vless://${uuid}@$USER.serv00.net:${port}?flow=&security=none&encryption=none&type=ws&host=$USER.serv00
+            echo -e "VLESS节点信息: vless://${uuid}@$USER.serv00.net:${port}?flow=&security=none&encryption=none&type=ws&host=$USER.serv00.net&path=%2F&serviceName=&sni=$USER.serv00.net"
         fi
     fi
 }
