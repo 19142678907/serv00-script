@@ -36,6 +36,7 @@ def restart_vless():
     return result == 0
 
 def main():
+    print(f"PATH: {os.getenv('PATH')}")
     if not check_vless_status():
         message = "VLESS 进程未运行，尝试重启..."
         send_telegram_message(message)
