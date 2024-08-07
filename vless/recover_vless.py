@@ -19,7 +19,4 @@ if __name__ == '__main__':
     recover_vless()
     
     telegram_token = os.getenv('TELEGRAM_TOKEN')
-    telegram_chat_id = os.getenv('TELEGRAM_CHAT_ID')
-    message = 'Vless服务已恢复。'
-    
-    send_telegram_message(telegram_token, telegram_chat_id, message)
+    telegram_chat_id = os.getenv
