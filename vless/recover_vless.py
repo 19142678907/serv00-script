@@ -18,10 +18,12 @@ def send_telegram_message(message):
 
 def recover_vless():
     try:
-        subprocess.run(['bash', 'vless/check_vless.sh'], check=True)
-        send_telegram_message("VLESS 服务已恢复。")
+        result = subprocess.run(['bash', 'vless/check_vless.sh'], check=True, text=True, capture_output=True)
+        output = result.stdout
+        message = f"serv00-vless 恢复操作结果：\n\n{output}"
+        send_telegram_message(message)
     except subprocess.CalledProcessError as e:
-        send_telegram_message(f"VLESS 服务恢复失败：{e}")
+        send_telegram_message(f"VLESS 服务恢复失败：{e.output}")
 
 if __name__ == "__main__":
     recover_vless()
