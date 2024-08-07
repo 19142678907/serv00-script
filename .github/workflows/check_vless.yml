@@ -23,13 +23,16 @@ jobs:
           python -m pip install --upgrade pip
           pip install requests  # 只需安装需要的依赖，此处假设使用 requests 发送 HTTP 请求
           sudo npm install -g pm2  # 安装 pm2
-          echo "::add-path::$(npm bin -g)"  # 将 npm 全局安装目录添加到 PATH
 
-      - name: 验证pm2安装
+      - name: 添加 pm2 到 PATH
+        run: |
+          echo "/usr/local/bin" >> $GITHUB_PATH
+
+      - name: 验证 pm2 安装
         run: |
           pm2 --version  # 验证 pm2 是否安装成功
 
-      - name: 执行Python脚本恢复vless服务并发送Telegram消息
+      - name: 执行 Python 脚本恢复 vless 服务并发送 Telegram 消息
         env:
           ACCOUNTS_JSON: ${{ secrets.ACCOUNTS_JSON }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
