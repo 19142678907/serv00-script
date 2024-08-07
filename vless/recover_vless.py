@@ -6,19 +6,12 @@ def send_telegram_message(message):
     telegram_token = os.getenv('TELEGRAM_TOKEN')
     telegram_chat_id = os.getenv('TELEGRAM_CHAT_ID')
     
-    print(f"Sending message to Telegram: {message}")
-    print(f"Using token: {telegram_token}")
-    print(f"Using chat ID: {telegram_chat_id}")
-    
     url = f"https://api.telegram.org/bot{telegram_token}/sendMessage"
     payload = {
         'chat_id': telegram_chat_id,
         'text': message
     }
     response = requests.post(url, data=payload)
-    
-    print(f"Telegram response status: {response.status_code}")
-    print(f"Telegram response text: {response.text}")
     
     if response.status_code != 200:
         raise Exception(f"Failed to send message: {response.text}")
