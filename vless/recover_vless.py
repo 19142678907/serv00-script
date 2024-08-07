@@ -1,7 +1,7 @@
 import os
 import requests
 import json
-from subprocess import call
+from subprocess import call, DEVNULL, STDOUT
 
 # 环境变量
 ACCOUNTS_JSON = os.getenv('ACCOUNTS_JSON')
@@ -22,11 +22,15 @@ def send_telegram_message(message):
         print(f"Telegram消息发送成功: {message}")
 
 def check_vless_status():
-    result = call(["pm2", "status", "vless"])
-    return result == 0
+    try:
+        result = call(["pm2", "status", "vless"], stdout=DEVNULL, stderr=STDOUT)
+        return result == 0
+    except FileNotFoundError as e:
+        print(f"FileNotFoundError: {e}")
+        return False
 
 def restart_vless():
-    result = call(["pm2", "restart", "vless"])
+    result = call(["pm2", "restart", "vless"], stdout=DEVNULL, stderr=STDOUT)
     return result == 0
 
 def main():
