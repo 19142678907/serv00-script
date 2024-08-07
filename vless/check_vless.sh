@@ -6,7 +6,7 @@ NC='\033[0m'  # 恢复默认颜色
 
 # 输出绿色的 "YI XIU"
 output_yi_xiu() {
-    echo -e "${GREEN} ..."
+    echo -e "${GREEN}YI XIU${NC}"
 }
 
 # Function to generate a UUID
@@ -118,4 +118,13 @@ main() {
         echo "没有提供-p参数，跳过vless安装。"
         if [[ -f config.json ]]; then
             uuid=$(jq -r '.uuid' config.json)
-     
+            port=$(jq -r '.port' config.json)
+            echo -e "UUID: ${uuid}"
+            echo -e "Port: ${port}"
+            echo -e "域名: $USER.serv00.net"
+            echo -e "VLESS节点信息: vless://${uuid}@$USER.serv00.net:${port}?flow=&security=none&encryption=none&type=ws&host=$USER.serv00
+        fi
+    fi
+}
+
+main "$@"
