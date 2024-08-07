@@ -67,7 +67,7 @@ check_vless_status() {
         echo "vless进程未运行或已停止，正在重启..."
         pm2 restart vless
         echo -e "${GREEN}vless进程已重启。${NC}"
-    }
+    fi
 }
 
 # 检查是否有pm2 vless快照
@@ -80,7 +80,7 @@ check_pm2_vless_snapshot() {
     else
         echo "未检测到pm2 vless快照，启动vless进程..."
         start_pm2_vless_process
-    }
+    fi
 }
 
 # 检查pm2 vless的状态
@@ -91,7 +91,7 @@ check_pm2_vless_status() {
     else
         echo "未找到pm2 vless进程，检查是否有快照..."
         check_pm2_vless_snapshot
-    }
+    fi
 }
 
 # 主函数
