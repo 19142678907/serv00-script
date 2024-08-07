@@ -8,6 +8,9 @@ ACCOUNTS_JSON = os.getenv('ACCOUNTS_JSON')
 TELEGRAM_TOKEN = os.getenv('TELEGRAM_TOKEN')
 TELEGRAM_CHAT_ID = os.getenv('TELEGRAM_CHAT_ID')
 
+# 获取 pm2 的绝对路径
+PM2_PATH = '/usr/local/bin/pm2'
+
 def send_telegram_message(message):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     data = {
@@ -23,14 +26,14 @@ def send_telegram_message(message):
 
 def check_vless_status():
     try:
-        result = call(["pm2", "status", "vless"], stdout=DEVNULL, stderr=STDOUT)
+        result = call([PM2_PATH, "status", "vless"], stdout=DEVNULL, stderr=STDOUT)
         return result == 0
     except FileNotFoundError as e:
         print(f"FileNotFoundError: {e}")
         return False
 
 def restart_vless():
-    result = call(["pm2", "restart", "vless"], stdout=DEVNULL, stderr=STDOUT)
+    result = call([PM2_PATH, "restart", "vless"], stdout=DEVNULL, stderr=STDOUT)
     return result == 0
 
 def main():
