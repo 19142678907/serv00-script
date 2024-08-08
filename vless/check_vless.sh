@@ -23,6 +23,7 @@ output_yi_xiu() {
     echo -e "--------------------------------------------------------------------------------------------------"
 }
 
+
 # Function to generate a UUID
 generate_uuid() {
     for i in {1..3}; do
@@ -49,7 +50,6 @@ generate_uuid() {
     uuid=${predefined_uuids[$RANDOM % ${#predefined_uuids[@]}]}
     echo "$uuid"
 }
-
 # Function to save config.json
 save_config() {
     local port=$1
@@ -95,7 +95,6 @@ start_pm2_vless_process() {
     ~/.npm-global/bin/pm2 start ~/domains/$USER.serv00.net/vless/app.js --name vless
     echo -e "${GREEN}pm2 vless进程已启动。${NC}"
 }
-
 # 检查vless的状态
 check_vless_status() {
     status=$(pm2 status vless | grep -w 'vless' | awk '{print $18}')
@@ -107,7 +106,6 @@ check_vless_status() {
         echo -e "${GREEN}vless进程已重启。${NC}"
     fi
 }
-
 # 检查是否有pm2 vless快照
 check_pm2_vless_snapshot() {
     if [[ -f ~/.pm2/dump.pm2 ]]; then
@@ -121,6 +119,7 @@ check_pm2_vless_snapshot() {
     fi
 }
 
+
 # 检查pm2 vless的状态
 check_pm2_vless_status() {
     pm2 describe vless &>/dev/null
@@ -131,7 +130,6 @@ check_pm2_vless_status() {
         check_pm2_vless_snapshot
     fi
 }
-
 # 主函数
 main() {
     local port=3000  # Default port
@@ -162,12 +160,15 @@ main() {
             echo -e "Port: ${port}"
             echo -e "域名: $USER.serv00.net"
             echo -e "VLESS节点信息: vless://${uuid}@$USER.serv00.net:${port}?flow=&security=none&encryption=none&type=ws&host=$USER.serv00.net&path=/&sni=&fp=&pbk=&sid=#$USER.serv00.vless"
+
         else
             echo -e "config.json 文件不存在或格式错误。"
         fi
         echo "开始检查pm2 vless进程..."
         check_pm2_vless_status
     fi
+
+
 }
 
 # 执行主函数
